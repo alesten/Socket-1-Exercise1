@@ -34,25 +34,8 @@ public class Socket1Exercise1 {
 
         ServerSocket ss = new ServerSocket();
         ss.bind(new InetSocketAddress(ip, port));
-        Socket s = ss.accept();
-        
-        BufferedReader in;
-        PrintWriter out;
-        
-        while(true){
-                in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                out = new PrintWriter(s.getOutputStream(), true);
-                in.readLine();
-                
-                DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss", Locale.ENGLISH);
-                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                DateFormat dateFormatYear = new SimpleDateFormat("yyyy");
-                dateFormatYear.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-                Date date = new Date();
-
-                out.printf("%s UTC %s\n", dateFormat.format(date), dateFormatYear.format(date));
+        while (true) {            
+            new TimePrinter(ss.accept()).start();
         }
     }
-    
 }
